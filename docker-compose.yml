@@ -1,0 +1,44 @@
+
+version: '3'
+
+services: 
+    my-app:
+        # Means look in cwd for a docker file, and use that
+        # to build this container
+        build: 
+            # Because the docker file is not in the pwd, context:
+            # specifies dir where we want all the files and folders
+            # for this container are to be pulled from, i.e. root dir
+            context: .
+            dockerfile: Dockerfile.dev
+
+        ports: 
+            - "3000:3000"
+        
+        # Volumes let you update a container without having to 
+        # rebuild, by mapping container WORKDIR to pwd
+        volumes: 
+            # this file has no mapping thus will be ignored
+            - /app/node_modules
+            # map pwd . to container WORKDIR /app, hence the :
+            - ./:/app/
+    
+    # Test service 
+    # Container for running tests
+    tests:
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev
+        volumes: 
+            - /app/node_modules
+            - .:/app
+        # Override npm run start command in the Dockerfile.dev
+        command: ["yarn", "run", "test"]
+
+    
+
+
+
+
+
+

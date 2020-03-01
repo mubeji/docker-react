@@ -1,0 +1,30 @@
+# This container is for development only
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+
+# Copy everything in our wd to the container wd i.e. /app
+COPY . .
+
+CMD ["npm", "run", "start"]
+
+# To build the project using Dockerfile.dev file
+        # docker build -f Dockerfile.dev .
+        # -f, is to specify file to be used
+
+# Docker volumes
+# So instead of copying ( COPY . . ) the pwd to the container WORKDIR
+# because this cannot be update without rebuilding the project
+# we use volumes this creates a pointer in the container WORKDIR
+# that points to the pwd, that way any update to to pwd is propergated
+# to the container WORKDIR
+
+# docker run -p 3000:3000 -v /app/node_modules  -v $(pwd):/app <image_id>
+
+
+
