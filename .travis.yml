@@ -1,0 +1,21 @@
+# This file is for continuous deployment with travis
+
+# For supper user permissions
+sudo: required
+
+services: 
+    # Install docker in to container
+    - docker
+
+# For a series of commands to run before test runs
+before_install:
+    # -t tags the docker-react repo with my username
+    # NOTE we can tag using any name e.g. MY_IMAGE
+    - docker build -t mubeji/docker-react -f Dockerfile.dev .
+    # Build docker IMAGE using Dockerfile.dev
+
+
+# The scripts section contains all commands to be executed
+# to run on our test suit
+script:
+    -
