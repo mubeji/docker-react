@@ -1,4 +1,5 @@
 # This file is for continuous deployment with travis
+language: generic 
 
 # For supper user permissions
 sudo: required
@@ -18,4 +19,4 @@ before_install:
 # The scripts section contains all commands to be executed
 # to run on our test suit
 script:
-    -
+    - docker run -e CI=true mubeji/docker-react yarn run test
