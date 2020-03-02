@@ -20,3 +20,46 @@ before_install:
 # to run on our test suit
 script:
     - docker run -e CI=true mubeji/docker-react yarn run test
+
+# Now deploy
+deploy: 
+    edge: true
+    # elasticbeanstalk AWS
+    provider: elasticbeanstalk
+    # The region comes from the link on AWS 
+    # DockerReact-env.vbptw2p9b3.us-east-2.elasticbeanstalk.com
+    region: "us-east-2"
+    # Name of the app
+    app: "docker-react"
+
+    env: "DockerReact-env"
+
+    # This is a zip file that contains all the files for
+    # the app
+    bucket_name: "elasticbeanstalk-us-east-2-188785653063"
+
+    # Use app name above
+    bucket_path: "docker-react"
+
+    # Only attempt to deploy the app when there's modifications 
+    # to the master branch
+    on:
+        branch: master 
+
+    # API keys to give travis ci access to our AWS account
+    # From local environment varables
+    access_key_id: "$AWS_ACCESS_KEY"
+    secret_access_key: "$AWS_SECRET_KEY"
+
+
+
+
+
+
+
+
+
+
+
+
+
