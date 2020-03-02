@@ -27,6 +27,8 @@ RUN npm run build
 # 1, use nginx image a production server
 FROM nginx
 
+# Expose port for aws
+EXPOSE 80
 # 2, copy over the results of npm run build
 # Means, copy  /app/build  from  builder above  to  /usr/share/nginx/html
 COPY --from=builder /app/build /usr/share/nginx/html
